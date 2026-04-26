@@ -12,12 +12,13 @@
       --bg:     #FAF7F2;
       --peach:  #F2C4A8;
       --coral:  #D4735A;
-      --coral2: #C0553C;
       --dark:   #1A1612;
       --mid:    #6B5C52;
       --light:  #B8A89E;
       --white:  #FFFFFF;
       --imgbg:  #F0EDD8;
+      --green:  #2D6A4F;
+      --green2: #E8F5EE;
       --border: rgba(180,160,140,.18);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +27,7 @@
     .screen { display: none; min-height: 100vh; }
     .screen.active { display: block; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: 56px; display: flex; align-items: center; justify-content: space-between;
@@ -39,12 +40,12 @@
     .nav-logo-text { font-size: .95rem; font-weight: 700; color: var(--dark); }
     .nav-logo-text em { color: var(--coral); font-style: normal; }
     .nav-links { display: flex; align-items: center; gap: 1.8rem; }
-    .nav-links a { font-size: .82rem; font-weight: 500; color: var(--mid); text-decoration: none; transition: color .2s; }
+    .nav-links a { font-size: .82rem; font-weight: 500; color: var(--mid); text-decoration: none; transition: color .2s; cursor: pointer; }
     .nav-links a:hover { color: var(--dark); }
     .btn-nav { font-size: .82rem; font-weight: 600; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .45rem 1.1rem; cursor: pointer; transition: filter .2s; }
     .btn-nav:hover { filter: brightness(.94); }
 
-    /* HERO */
+    /* ── HERO ── */
     #hero {
       min-height: 100vh; padding-top: 56px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -54,34 +55,76 @@
     .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .38; pointer-events: none; }
     .orb1 { width: 550px; height: 550px; background: #F2C4A8; top: -180px; left: -180px; }
     .orb2 { width: 380px; height: 380px; background: #EDD5C0; bottom: -60px; right: -80px; }
-    .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.3rem; padding: 0 1.5rem; }
+    .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.1rem; padding: 0 1.5rem; }
     .hero-icon { width: 96px; height: 96px; border-radius: 22px; background: var(--peach); box-shadow: 0 8px 30px rgba(212,115,90,.22); display: flex; align-items: center; justify-content: center; animation: float 3.5s ease-in-out infinite; }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     .hero-title { font-size: clamp(3.8rem, 11vw, 7.5rem); font-weight: 800; letter-spacing: -.04em; line-height: 1; background: linear-gradient(135deg, #7A3020 0%, var(--coral) 55%, #E8967C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-sub { font-size: .98rem; color: var(--mid); max-width: 360px; line-height: 1.65; }
+    .hero-tagline { font-size: 1.05rem; color: var(--mid); font-style: italic; margin-top: -.2rem; }
+    .hero-sub { font-size: .95rem; color: var(--mid); max-width: 380px; line-height: 1.65; }
     .hero-pills { display: flex; gap: .55rem; flex-wrap: wrap; justify-content: center; }
     .pill { font-size: .78rem; font-weight: 500; color: var(--mid); background: var(--white); border: 1px solid var(--border); border-radius: 99px; padding: .3rem .85rem; }
     .scroll-cue { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .25rem; color: var(--light); cursor: pointer; animation: bob 2s ease-in-out infinite; }
     .scroll-cue span { font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
     @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(5px)} }
 
-    /* CTA */
-    #cta { background: var(--bg); padding: 5rem 1.5rem 7rem; display: flex; justify-content: center; }
-    .cta-card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 40px rgba(0,0,0,.06); padding: 3rem 2.5rem; max-width: 520px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; position: relative; overflow: hidden; }
+    /* ── CTA ── */
+    #cta { background: var(--bg); padding: 5rem 1.5rem 3rem; display: flex; justify-content: center; }
+    .cta-card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 40px rgba(0,0,0,.06); padding: 3rem 2.5rem; max-width: 560px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; position: relative; overflow: hidden; }
     .cta-card::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(242,196,168,.35) 0%, transparent 70%); transform: translate(30%,-30%); }
     .cta-icon { width: 72px; height: 72px; border-radius: 18px; background: var(--peach); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
     .cta-card h2 { font-size: 1.65rem; font-weight: 700; color: var(--dark); position: relative; z-index: 1; }
-    .cta-card p { font-size: .87rem; color: var(--mid); line-height: 1.7; position: relative; z-index: 1; }
+    .cta-card p { font-size: .87rem; color: var(--mid); line-height: 1.7; position: relative; z-index: 1; max-width: 400px; }
     .cta-pills { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
     .cta-pill { font-size: .74rem; font-weight: 500; color: var(--mid); background: var(--bg); border: 1px solid var(--border); border-radius: 99px; padding: .28rem .8rem; }
     .btn-start { font-size: .9rem; font-weight: 700; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .82rem 2rem; cursor: pointer; display: flex; align-items: center; gap: .45rem; transition: filter .2s, transform .2s; position: relative; z-index: 1; }
     .btn-start:hover { filter: brightness(.94); transform: translateY(-1px); }
 
+    /* ── MISSION ── */
+    #mission { padding: 3rem 1.5rem 6rem; display: flex; justify-content: center; }
+    .mission-card { max-width: 820px; width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; }
+    .mission-block { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 1.6rem; display: flex; flex-direction: column; gap: .7rem; }
+    .mission-icon { font-size: 1.8rem; }
+    .mission-title { font-size: .95rem; font-weight: 700; color: var(--dark); }
+    .mission-text { font-size: .82rem; color: var(--mid); line-height: 1.65; }
+    .mission-tag { display: inline-flex; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 600; color: var(--green); background: var(--green2); border-radius: 99px; padding: .22rem .7rem; align-self: flex-start; }
+    @media (max-width: 700px) { .mission-card { grid-template-columns: 1fr; } }
+
+    /* ── PAGES ── */
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 5rem 1.5rem 6rem; }
+    .page-wrap h1 { font-size: 2.2rem; font-weight: 800; color: var(--dark); margin-bottom: 1.5rem; }
+    .page-wrap h2 { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin: 2rem 0 .6rem; }
+    .page-wrap p { font-size: .92rem; color: var(--mid); line-height: 1.75; margin-bottom: .8rem; }
+    .page-wrap ul { padding-left: 1.2rem; margin-bottom: .8rem; }
+    .page-wrap li { font-size: .92rem; color: var(--mid); line-height: 1.75; margin-bottom: .3rem; }
+    .page-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+    .contact-form { display: flex; flex-direction: column; gap: .9rem; margin-top: 1.5rem; }
+    .contact-form input, .contact-form textarea { font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--dark); background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: .8rem 1rem; outline: none; transition: border-color .2s; width: 100%; }
+    .contact-form textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--coral); }
+    .contact-form label { font-size: .8rem; font-weight: 600; color: var(--mid); margin-bottom: -.4rem; }
+    .btn-submit { font-size: .9rem; font-weight: 700; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .8rem 2rem; cursor: pointer; align-self: flex-start; transition: filter .2s; }
+    .btn-submit:hover { filter: brightness(.94); }
+    .contact-sent { display: none; background: var(--green2); color: var(--green); border-radius: 12px; padding: 1rem 1.2rem; font-size: .88rem; font-weight: 500; margin-top: .5rem; }
+
     footer { background: var(--bg); border-top: 1px solid var(--border); padding: 1.4rem; text-align: center; font-size: .77rem; color: var(--light); }
-    footer a { color: var(--light); text-decoration: none; margin: 0 .4rem; }
+    footer a { color: var(--light); text-decoration: none; margin: 0 .4rem; cursor: pointer; }
     footer a:hover { color: var(--mid); }
 
-    /* QUIZ */
+    /* ── INITIAL PROMPT ── */
+    #prompt-screen { min-height: 100vh; padding-top: 56px; display: none; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(ellipse 90% 60% at 50% 10%, #F8E4D4 0%, var(--bg) 60%); }
+    #prompt-screen.active { display: flex; }
+    .prompt-card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 32px rgba(0,0,0,.07); padding: 2.5rem; max-width: 600px; width: calc(100% - 3rem); display: flex; flex-direction: column; gap: 1.1rem; }
+    .prompt-card h2 { font-size: 1.5rem; font-weight: 700; color: var(--dark); line-height: 1.25; }
+    .prompt-card p { font-size: .86rem; color: var(--mid); line-height: 1.65; }
+    .prompt-textarea { font-family: 'Inter', sans-serif; font-size: .92rem; color: var(--dark); background: var(--bg); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem 1.1rem; outline: none; resize: none; min-height: 110px; line-height: 1.7; transition: border-color .2s; width: 100%; }
+    .prompt-textarea:focus { border-color: var(--coral); }
+    .prompt-hint { font-size: .76rem; color: var(--light); font-style: italic; }
+    .btn-prompt { font-size: .9rem; font-weight: 700; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .82rem 2rem; cursor: pointer; align-self: flex-start; display: flex; align-items: center; gap: .45rem; transition: filter .2s, transform .2s; }
+    .btn-prompt:hover { filter: brightness(.94); transform: translateY(-1px); }
+    .prompt-analyzing { display: none; align-items: center; gap: .8rem; font-size: .88rem; color: var(--mid); }
+    .prompt-analyzing.show { display: flex; }
+
+    /* ── QUIZ ── */
     #quiz-screen { min-height: 100vh; padding-top: 56px; display: none; flex-direction: column; align-items: center; background: var(--bg); }
     #quiz-screen.active { display: flex; }
     .q-progress-wrap { width: 100%; max-width: 700px; padding: 1.4rem 1.5rem .4rem; }
@@ -108,21 +151,21 @@
     .other-row.sel .plus-box { border-color: var(--coral); background: var(--coral); color: var(--white); }
     .other-input { width: 100%; font-family: 'Inter', sans-serif; font-size: .88rem; color: var(--dark); background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: .72rem 1rem; outline: none; margin-top: .5rem; transition: border-color .2s; }
     .other-input:focus { border-color: var(--coral); }
-    .q-hint { font-size: .76rem; color: var(--light); text-align: center; margin-top: .75rem; }
-    .freetext { width: 100%; font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--dark); background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 1rem; outline: none; resize: vertical; min-height: 120px; line-height: 1.65; transition: border-color .2s; }
-    .freetext:focus { border-color: var(--coral); }
-    .q-desc { font-size: .82rem; color: var(--mid); line-height: 1.6; margin-bottom: 1rem; }
+    .q-hint { font-size: .75rem; color: var(--light); text-align: center; margin-top: .85rem; font-style: italic; }
     .quiz-footer { width: 100%; max-width: 700px; padding: .8rem 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
     .btn-back { font-size: .88rem; font-weight: 500; color: var(--mid); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: .35rem; transition: color .2s; }
     .btn-back:hover { color: var(--dark); }
     .btn-back.hidden { visibility: hidden; }
+    .quiz-right-btns { display: flex; align-items: center; gap: .75rem; }
+    .btn-skip { font-size: .82rem; font-weight: 500; color: var(--light); background: none; border: 1.5px solid var(--border); border-radius: 99px; padding: .65rem 1.2rem; cursor: pointer; transition: color .18s, border-color .18s; }
+    .btn-skip:hover { color: var(--mid); border-color: var(--light); }
     .btn-next { font-size: .88rem; font-weight: 700; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .72rem 1.6rem; cursor: pointer; display: flex; align-items: center; gap: .4rem; transition: filter .18s, transform .18s; }
     .btn-next:hover { filter: brightness(.94); transform: translateY(-1px); }
     .loading-wrap { display: flex; flex-direction: column; align-items: center; gap: .9rem; padding: 2.5rem 0; color: var(--light); font-size: .88rem; }
     .spinner { width: 30px; height: 30px; border: 2.5px solid #E5DDD5; border-top-color: var(--coral); border-radius: 50%; animation: spin .75s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* RESULTS */
+    /* ── RESULTS ── */
     #results-screen { min-height: 100vh; padding-top: 56px; display: none; flex-direction: column; background: var(--bg); }
     #results-screen.active { display: flex; }
     .res-top { padding: 2rem 2.5rem 1rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
@@ -131,7 +174,10 @@
     .res-h { font-size: 2rem; font-weight: 800; color: var(--dark); line-height: 1.15; }
     .res-h span { color: var(--coral); }
     .res-sub { font-size: .84rem; color: var(--mid); margin-top: .25rem; }
-    .btn-refresh { font-size: .8rem; font-weight: 600; color: var(--mid); background: var(--white); border: 1px solid var(--border); border-radius: 99px; padding: .5rem 1.1rem; cursor: pointer; display: flex; align-items: center; gap: .4rem; align-self: flex-start; margin-top: .4rem; transition: border-color .2s, color .2s; }
+    .res-actions { display: flex; gap: .6rem; align-self: flex-start; margin-top: .4rem; flex-wrap: wrap; }
+    .btn-refine { font-size: .8rem; font-weight: 600; color: var(--dark); background: var(--peach); border: none; border-radius: 99px; padding: .5rem 1.1rem; cursor: pointer; display: flex; align-items: center; gap: .4rem; transition: filter .2s; }
+    .btn-refine:hover { filter: brightness(.94); }
+    .btn-refresh { font-size: .8rem; font-weight: 600; color: var(--mid); background: var(--white); border: 1px solid var(--border); border-radius: 99px; padding: .5rem 1.1rem; cursor: pointer; display: flex; align-items: center; gap: .4rem; transition: border-color .2s, color .2s; }
     .btn-refresh:hover { border-color: var(--coral); color: var(--coral); }
     .res-grid { padding: .5rem 2rem 4rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.1rem; }
     .gift-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; }
@@ -157,9 +203,6 @@
     .res-loading p { font-size: .95rem; font-weight: 600; color: var(--dark); }
     .res-loading span { font-size: .82rem; color: var(--mid); }
 
-    /* Gift icon SVG shared */
-    .gift-svg { width: 100%; height: 100%; }
-
     @media (max-width: 640px) {
       nav { padding: 0 1.2rem; }
       .nav-links { display: none; }
@@ -170,23 +213,22 @@
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="goHome()">
+  <a class="nav-logo" onclick="showScreen('landing-screen')">
     <div class="nav-logo-icon">
       <img src="/logo.png" alt="GoodGifts" style="width:22px;height:22px;object-fit:contain;"/>
     </div>
     <span class="nav-logo-text">Good<em>Gifts</em></span>
   </a>
   <div class="nav-links">
-    <a href="#" onclick="startQuiz();return false;">Find a Gift</a>
-    <a href="#">About Us</a>
-    <a href="#">How It Works</a>
-    <a href="#">Blog</a>
-    <a href="#">Contact Us</a>
+    <a onclick="startQuiz()">Find a Gift</a>
+    <a onclick="showPage('about-screen')">About Us</a>
+    <a onclick="showPage('howitworks-screen')">How It Works</a>
+    <a onclick="showPage('contact-screen')">Contact Us</a>
   </div>
   <button class="btn-nav" id="btn-nav-cta" onclick="startQuiz()">Start Quiz →</button>
 </nav>
 
-<!-- LANDING -->
+<!-- ══════════════ LANDING ══════════════ -->
 <div id="landing-screen" class="screen active">
   <section id="hero">
     <div class="orb orb1"></div>
@@ -195,13 +237,14 @@
       <div class="hero-icon">
         <img src="/logo.png" alt="GoodGifts" style="width:68px;height:68px;object-fit:contain;"/>
       </div>
-      <div class="hero-title">The perfect gift,<br><em style="-webkit-text-fill-color:var(--coral);font-style:italic;">every time.</em></div>
+      <div class="hero-title">GoodGifts</div>
+      <div class="hero-tagline">The perfect gift, every time.</div>
       <p class="hero-sub">Thoughtful, personalised gift ideas — curated by AI.</p>
       <div class="hero-pills">
         <span class="pill">🎁 Personalised</span>
         <span class="pill">🤖 AI-Powered</span>
         <span class="pill">🌱 Eco Scores</span>
-        <span class="pill">✨ 9 Smart Questions</span>
+        <span class="pill">⚡ Smart Questions</span>
       </div>
     </div>
     <div class="scroll-cue" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
@@ -216,24 +259,143 @@
         <img src="/logo.png" alt="GoodGifts" style="width:44px;height:44px;object-fit:contain;"/>
       </div>
       <h2>Ready to find the perfect gift?</h2>
-      <p>Our AI adapts 9 questions based on your answers, then recommends 8 thoughtful gifts — each with an eco-sustainability score.</p>
+      <p>Tell us a little about the person you're shopping for, and our AI will find the ideal gift — with eco-sustainability scores and Amazon links.</p>
       <div class="cta-pills">
         <span class="cta-pill">🎉 Any Occasion</span>
         <span class="cta-pill">⚡ Adaptive AI</span>
         <span class="cta-pill">🌱 Eco Scores</span>
       </div>
-      <button class="btn-start" onclick="startQuiz()">Start the Quiz →</button>
+      <button class="btn-start" onclick="startQuiz()">Find a Gift →</button>
     </div>
   </section>
 
-  <footer>© 2026 GoodGifts · <a href="#">Contact Us</a></footer>
+  <section id="mission">
+    <div class="mission-card">
+      <div class="mission-block">
+        <div class="mission-icon">🌱</div>
+        <div class="mission-title">Our Mission</div>
+        <div class="mission-text">Every year, billions of dollars worth of unwanted gifts are thrown away or resold. GoodGifts exists to change that — by helping people give gifts that are truly meaningful, and kinder to the planet.</div>
+        <span class="mission-tag">🌍 For the Planet</span>
+      </div>
+      <div class="mission-block">
+        <div class="mission-icon">♻️</div>
+        <div class="mission-title">Sustainability First</div>
+        <div class="mission-text">Every gift recommendation includes an eco score. Our algorithm actively favours durable, sustainable products — and deprioritises items likely to end up in landfill. Because a good gift shouldn't cost the Earth.</div>
+        <span class="mission-tag">✅ Eco Rated</span>
+      </div>
+      <div class="mission-block">
+        <div class="mission-icon">🎯</div>
+        <div class="mission-title">Zero Waste Gifting</div>
+        <div class="mission-text">A gift that doesn't match the recipient gets returned, regifted, or binned. Our AI asks the right questions to find something they'll genuinely love — reducing waste at the source.</div>
+        <span class="mission-tag">📦 Less Waste</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 GoodGifts · <a onclick="showPage('contact-screen')">Contact Us</a></footer>
 </div>
 
-<!-- QUIZ -->
+<!-- ══════════════ ABOUT ══════════════ -->
+<div id="about-screen" class="screen">
+  <div class="page-wrap">
+    <h1>About Us</h1>
+    <p>GoodGifts was created in 2026 by three students — Isabela Martinez, Emma Rinaldi, and Raphaël Davy — as part of an entrepreneurship project. What started as a school assignment quickly became something we genuinely believed in.</p>
+    <p>We noticed a problem everyone faces: finding the right gift is hard, time-consuming, and often ends in a purchase that doesn't land. At the same time, the environmental cost of unwanted gifts — the packaging, the returns, the landfill — is enormous.</p>
+    <div class="page-divider"></div>
+    <h2>Our Vision</h2>
+    <p>We believe gifting should be personal, effortless, and responsible. GoodGifts uses AI to ask smart, adaptive questions about the recipient and surface truly fitting gift ideas — each with a sustainability score, so you can feel good about what you're giving.</p>
+    <h2>Our Values</h2>
+    <ul>
+      <li><strong>Personalisation</strong> — every recommendation is tailored, never generic.</li>
+      <li><strong>Sustainability</strong> — we prioritise eco-friendly products and flag their impact.</li>
+      <li><strong>Simplicity</strong> — finding a great gift should take minutes, not hours.</li>
+      <li><strong>Honesty</strong> — we show you the eco score of every product, even when it's low.</li>
+    </ul>
+    <div class="page-divider"></div>
+    <p style="font-style:italic;color:var(--light);">GoodGifts is currently in its early stage. We're a small team with a big ambition — to make every gift count.</p>
+    <br/>
+    <button class="btn-submit" onclick="showScreen('landing-screen')">← Back to Home</button>
+  </div>
+  <footer>© 2026 GoodGifts · <a onclick="showPage('contact-screen')">Contact Us</a></footer>
+</div>
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<div id="howitworks-screen" class="screen">
+  <div class="page-wrap">
+    <h1>How It Works</h1>
+    <p>GoodGifts uses a smart, adaptive AI to find the perfect gift in three simple steps.</p>
+    <div class="page-divider"></div>
+    <h2>Step 1 — Tell us about the recipient</h2>
+    <p>Start by describing the person you're buying for and the occasion. The more detail you give, the better — but even a few words is enough to get started. Our AI reads your input and decides how many follow-up questions (if any) are needed to narrow things down.</p>
+    <h2>Step 2 — Answer a few smart questions (optional)</h2>
+    <p>If our AI needs more information to give you great recommendations, it will ask a small number of targeted questions — adapted specifically to what you've already told us. There's no fixed list of 10 generic questions. You can skip any question or add your own answers.</p>
+    <h2>Step 3 — Discover your gift picks</h2>
+    <p>You'll receive up to 8 personalised gift ideas, each with a description, price range, category, and an eco-sustainability score from 0 to 100. Every gift links directly to Amazon so you can purchase in seconds.</p>
+    <div class="page-divider"></div>
+    <h2>What's an Eco Score?</h2>
+    <p>Every gift is rated from 0 (environmentally harmful) to 100 (fully eco-friendly). Our algorithm considers factors like product durability, packaging, and the likelihood of the item being used long-term. We believe transparency matters — so even if a gift scores low, we still show you the score.</p>
+    <h2>Why is this better than just Googling?</h2>
+    <ul>
+      <li>Search engines show you what's popular — we show you what's <em>right for this person</em>.</li>
+      <li>Amazon recommends based on sales — we recommend based on personality and occasion.</li>
+      <li>General AI tools aren't specialised for gifting — GoodGifts is built exclusively for this.</li>
+    </ul>
+    <br/>
+    <button class="btn-submit" onclick="startQuiz()">Try it now →</button>
+  </div>
+  <footer>© 2026 GoodGifts · <a onclick="showPage('contact-screen')">Contact Us</a></footer>
+</div>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div id="contact-screen" class="screen">
+  <div class="page-wrap">
+    <h1>Contact Us</h1>
+    <p>Have a question, a suggestion, or just want to say hello? We'd love to hear from you. Fill in the form below and we'll get back to you as soon as possible.</p>
+    <div class="page-divider"></div>
+    <div class="contact-form">
+      <div>
+        <label>Your name</label>
+        <input type="text" id="contact-name" placeholder="Isabela, Thomas…" style="margin-top:.4rem"/>
+      </div>
+      <div>
+        <label>Your email</label>
+        <input type="email" id="contact-email" placeholder="you@example.com" style="margin-top:.4rem"/>
+      </div>
+      <div>
+        <label>Message</label>
+        <textarea id="contact-msg" placeholder="Tell us what's on your mind…" style="margin-top:.4rem"></textarea>
+      </div>
+      <button class="btn-submit" onclick="sendContact()">Send Message →</button>
+      <div class="contact-sent" id="contact-sent">✅ Message sent! We'll be in touch soon.</div>
+    </div>
+  </div>
+  <footer>© 2026 GoodGifts · <a onclick="showPage('contact-screen')">Contact Us</a></footer>
+</div>
+
+<!-- ══════════════ INITIAL PROMPT ══════════════ -->
+<div id="prompt-screen" class="screen">
+  <div class="prompt-card">
+    <h2>Who are you shopping for? 🎁</h2>
+    <p>Describe the recipient and the occasion in a few words. Our AI will figure out the rest — and only ask follow-up questions if needed.</p>
+    <textarea class="prompt-textarea" id="initial-prompt" placeholder="e.g. My brother, turning 30, loves hiking and cooking. Budget around €60. Looking for something thoughtful and a bit original."></textarea>
+    <p class="prompt-hint">The more detail you share, the more accurate your gift suggestions will be.</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;">
+      <button class="btn-prompt" onclick="analyzePrompt()">
+        Find Gifts ✨
+      </button>
+      <div class="prompt-analyzing" id="prompt-analyzing">
+        <div class="spinner"></div>
+        <span>Analysing your request…</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ QUIZ ══════════════ -->
 <div id="quiz-screen" class="screen">
   <div class="q-progress-wrap">
     <div class="q-progress-labels">
-      <span id="prog-lbl">Question 1 of 10</span>
+      <span id="prog-lbl">Question 1</span>
       <span class="q-pct" id="prog-pct">0%</span>
     </div>
     <div class="q-bar-bg"><div class="q-bar-fill" id="q-bar" style="width:0%"></div></div>
@@ -246,24 +408,25 @@
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
-    <div style="display:flex;align-items:center;gap:.75rem;">
-      <button id="btn-skip" onclick="handleSkip()" style="font-size:.82rem;font-weight:500;color:var(--light);background:none;border:1.5px solid var(--border);border-radius:99px;padding:.65rem 1.2rem;cursor:pointer;transition:color .18s,border-color .18s;" onmouseover="this.style.color='var(--mid)';this.style.borderColor='var(--light)';" onmouseout="this.style.color='var(--light)';this.style.borderColor='var(--border)';">Skip</button>
+    <div class="quiz-right-btns">
+      <button class="btn-skip" id="btn-skip" onclick="handleSkip()">Skip</button>
       <button class="btn-next" id="btn-next" onclick="handleNext()">Next →</button>
     </div>
   </div>
 </div>
 
-<!-- RESULTS -->
+<!-- ══════════════ RESULTS ══════════════ -->
 <div id="results-screen" class="screen">
   <div class="res-top">
     <div>
-      <button class="res-back" onclick="startQuiz()">← Back to Quiz</button>
+      <button class="res-back" onclick="startQuiz()">← New Search</button>
       <div class="res-h">Your Gift <span>Picks</span></div>
       <div class="res-sub">Curated just for you based on your answers</div>
     </div>
-    <button class="btn-refresh" id="btn-refresh" onclick="refreshResults()">
-      ↻ Refresh
-    </button>
+    <div class="res-actions">
+      <button class="btn-refine" onclick="refineResults()">🎯 Refine suggestions</button>
+      <button class="btn-refresh" onclick="refreshResults()">↻ Refresh</button>
+    </div>
   </div>
   <div id="res-container">
     <div class="res-loading"><div class="spinner"></div><p>Finding perfect gifts…</p><span>This takes just a moment</span></div>
@@ -271,141 +434,242 @@
 </div>
 
 <script>
-  let step = 0, history = [];
-  const TOTAL = 10;
+  /* ── STATE ── */
+  let step = 0;
+  let totalSteps = 0;
+  let history = [];
+  let initialPromptText = '';
 
-  function show(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); const nb=document.getElementById('btn-nav-cta'); if(nb) nb.textContent = id==='landing-screen' ? 'Start Quiz →' : 'New Search →'; }
-  function goHome() { show('landing-screen'); }
-  function startQuiz() { step=0; history=[]; show('quiz-screen'); loadStep(); }
-
-  function updateProgress() {
-    const pct = Math.round((step/TOTAL)*100);
-    document.getElementById('q-bar').style.width = pct+'%';
-    document.getElementById('prog-pct').textContent = pct+'%';
-    document.getElementById('prog-lbl').textContent = step===TOTAL-1 ? 'Final step' : `Question ${step+1} of ${TOTAL}`;
-    const bb = document.getElementById('btn-back');
-    step===0 ? bb.classList.add('hidden') : bb.classList.remove('hidden');
+  /* ── NAVIGATION ── */
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+    const nb = document.getElementById('btn-nav-cta');
+    if (nb) nb.textContent = id === 'landing-screen' ? 'Start Quiz →' : 'New Search →';
   }
 
+  function showPage(id) { showScreen(id); }
+
+  function startQuiz() {
+    step = 0; totalSteps = 0; history = []; initialPromptText = '';
+    document.getElementById('initial-prompt').value = '';
+    document.getElementById('prompt-analyzing').classList.remove('show');
+    showScreen('prompt-screen');
+  }
+
+  function goHome() { showScreen('landing-screen'); }
+
+  /* ── INITIAL PROMPT → AI decides number of questions ── */
+  async function analyzePrompt() {
+    const txt = document.getElementById('initial-prompt').value.trim();
+    if (!txt) { document.getElementById('initial-prompt').focus(); return; }
+    initialPromptText = txt;
+
+    document.getElementById('prompt-analyzing').classList.add('show');
+    document.querySelector('.btn-prompt').style.display = 'none';
+
+    try {
+      const sys = `You are a gift recommendation assistant. A user has described who they are buying a gift for.
+Decide how many follow-up questions (0 to 6) are needed to give great gift recommendations.
+- If the description is detailed enough, return 0.
+- If more info is needed, return the minimum number of questions required (max 6).
+Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sentence>"}`;
+
+      const r = await callAI(sys, [{ role: 'user', content: txt }]);
+      const data = JSON.parse(r.replace(/```json|```/g, '').trim());
+      totalSteps = Math.min(Math.max(parseInt(data.questions_needed) || 0, 0), 6);
+
+      history = [{ question: 'Initial description', options: [], selected: [txt] }];
+
+      if (totalSteps === 0) {
+        loadResults();
+      } else {
+        step = 0;
+        showScreen('quiz-screen');
+        loadStep();
+      }
+    } catch(e) {
+      // Fallback: just go to results with what we have
+      history = [{ question: 'Initial description', options: [], selected: [txt] }];
+      loadResults();
+    }
+  }
+
+  /* ── PROGRESS ── */
+  function updateProgress() {
+    const pct = totalSteps > 0 ? Math.round((step / totalSteps) * 100) : 100;
+    document.getElementById('q-bar').style.width = pct + '%';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-lbl').textContent = `Question ${step + 1} of ${totalSteps}`;
+    const bb = document.getElementById('btn-back');
+    step === 0 ? bb.classList.add('hidden') : bb.classList.remove('hidden');
+    // Hide skip on last question label
+    const skipBtn = document.getElementById('btn-skip');
+    if (skipBtn) skipBtn.style.display = 'inline-block';
+  }
+
+  /* ── LOAD STEP ── */
   async function loadStep() {
+    // Safety: never exceed totalSteps
+    if (step >= totalSteps) { loadResults(); return; }
     updateProgress();
     const card = document.getElementById('quiz-card');
     const nb = document.getElementById('btn-next');
-    if (step===TOTAL-1) { renderFree(card); nb.textContent='✨ Find My Gifts'; return; }
-    nb.textContent='Next →';
-    card.innerHTML=`<div class="loading-wrap"><div class="spinner"></div><span>Generating question…</span></div>`;
+    nb.textContent = step === totalSteps - 1 ? '✨ See Gifts' : 'Next →';
+
+    card.innerHTML = `<div class="loading-wrap"><div class="spinner"></div><span>Generating question…</span></div>`;
     try {
       const q = await genQuestion();
-      if (!history[step]) history[step]={question:q.question,options:q.options,selected:[]};
-      else { history[step].question=q.question; history[step].options=q.options; }
+      // Filter AI-generated "other" options to avoid duplicates
+      q.options = q.options.filter(o => !/^other/i.test(o.trim()));
+      if (!history[step + 1]) history[step + 1] = { question: q.question, options: q.options, selected: [] };
+      else { history[step + 1].question = q.question; history[step + 1].options = q.options; }
       renderQ(card, q);
-    } catch(e) { card.innerHTML=`<div class="loading-wrap"><span>⚠️ Connection error. Please retry.</span></div>`; }
+    } catch(e) {
+      card.innerHTML = `<div class="loading-wrap"><span>⚠️ Connection error. Please retry.</span></div>`;
+    }
   }
 
+  /* ── RENDER QUESTION ── */
   function renderQ(card, q) {
-    const badge = step===TOTAL-1 ? 'Final Step' : `Question ${step+1}`;
-    // Filter out any "other" options from AI to avoid duplicates with our own Other button
-    const filteredOptions = q.options.filter(o => !/^other/i.test(o.trim()));
-    card.innerHTML=`
-      <span class="q-badge">${badge}</span>
+    card.innerHTML = `
+      <span class="q-badge">Question ${step + 1}</span>
       <div class="q-text">${q.question}</div>
       <div class="opts-list" id="opts"></div>
       <div class="other-row" id="other-row" onclick="toggleOther()">
         <div class="plus-box">+</div>
         <span class="opt-text">Other…</span>
       </div>
-      <input class="other-input" id="other-inp" placeholder="Type your answer…" style="display:none"/>`;
+      <input class="other-input" id="other-inp" placeholder="Type your answer…" style="display:none"/>
+      <div class="q-hint">Select one or more answers — or skip, or add your own.</div>`;
 
     const opts = document.getElementById('opts');
-    filteredOptions.forEach(opt=>{
-      const r=document.createElement('div'); r.className='opt-row';
-      r.innerHTML=`<div class="chkbox"><svg class="chk-svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="opt-text">${opt}</span>`;
-      r.onclick=()=>{
+    q.options.forEach(opt => {
+      const r = document.createElement('div'); r.className = 'opt-row';
+      r.innerHTML = `<div class="chkbox"><svg class="chk-svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="opt-text">${opt}</span>`;
+      r.onclick = () => {
         r.classList.toggle('sel');
-        const h=history[step]; if(!h) return;
-        if(r.classList.contains('sel')){ if(!h.selected.includes(opt)) h.selected.push(opt); }
-        else { h.selected=h.selected.filter(s=>s!==opt); }
+        const h = history[step + 1]; if (!h) return;
+        if (r.classList.contains('sel')) { if (!h.selected.includes(opt)) h.selected.push(opt); }
+        else { h.selected = h.selected.filter(s => s !== opt); }
       };
-      // restore previous selection
-      if(history[step]?.selected?.includes(opt)) r.classList.add('sel');
+      if (history[step + 1]?.selected?.includes(opt)) r.classList.add('sel');
       opts.appendChild(r);
     });
   }
 
   function toggleOther() {
-    const r=document.getElementById('other-row'), i=document.getElementById('other-inp');
+    const r = document.getElementById('other-row'), i = document.getElementById('other-inp');
     r.classList.toggle('sel');
-    if(r.classList.contains('sel')){ i.style.display='block'; i.focus(); } else { i.style.display='none'; i.value=''; }
+    if (r.classList.contains('sel')) { i.style.display = 'block'; i.focus(); }
+    else { i.style.display = 'none'; i.value = ''; }
   }
 
-  function renderFree(card) {
-    card.innerHTML=`
-      <span class="q-badge">Final Step</span>
-      <div class="q-text">Anything else we should know?</div>
-      <p class="q-desc">Share any extra details — hobbies, budget, things they already have, etc.</p>
-      <textarea class="freetext" id="free-text" placeholder="e.g. They love hiking and cooking, budget is around $50, already have a lot of kitchen gadgets…"></textarea>`;
+  /* ── NEXT / SKIP ── */
+  function collectOther() {
+    const or = document.getElementById('other-row'), oi = document.getElementById('other-inp');
+    if (or?.classList.contains('sel') && oi?.value.trim()) {
+      if (!history[step + 1]) history[step + 1] = { question: '', options: [], selected: [] };
+      const val = oi.value.trim();
+      if (!history[step + 1].selected.includes(val)) history[step + 1].selected.push(val);
+    }
   }
 
   function handleNext() {
-    if(step===TOTAL-1) {
-      const ft=document.getElementById('free-text');
-      if(ft?.value.trim()) history.push({question:'Additional info',options:[],selected:[ft.value.trim()]});
-      loadResults(); return;
-    }
-    const or=document.getElementById('other-row'), oi=document.getElementById('other-inp');
-    if(or?.classList.contains('sel') && oi?.value.trim()) {
-      if(!history[step]) history[step]={question:'',options:[],selected:[]};
-      history[step].selected.push(oi.value.trim());
-    }
-    step++; loadStep();
+    collectOther();
+    step++;
+    if (step >= totalSteps) { loadResults(); return; }
+    loadStep();
   }
 
-  function goBack() { if(step>0){ step--; loadStep(); } }
-  function handleSkip() { if(!history[step]) history[step]={question:'',options:[],selected:[]}; step++; loadStep(); }
+  function handleSkip() {
+    step++;
+    if (step >= totalSteps) { loadResults(); return; }
+    loadStep();
+  }
 
+  function goBack() {
+    if (step > 0) { step--; loadStep(); }
+    else { showScreen('prompt-screen'); }
+  }
+
+  /* ── GENERATE QUESTION ── */
   async function genQuestion() {
-    const sys=`You are a gift recommendation assistant. Ask one smart, short, useful question to find the perfect gift.
+    const sys = `You are a gift recommendation assistant. Ask one smart, targeted question to refine gift suggestions.
 - NEVER assume gender. Use "they/them/the recipient".
-- Return ONLY valid JSON: {"question":"...","options":["a","b","c","d","e","f"]}
-- 5-8 options, each under 35 chars. Build on previous answers.`;
-    const ctx=history.length===0
-      ?'First question. Ask about the occasion for this gift.'
-      :`Previous Q&A:\n${history.map((h,i)=>`Q${i+1}: ${h.question}\nA: ${h.selected.join(', ')||'Skipped'}`).join('\n\n')}\n\nAsk the most useful follow-up question.`;
-    const r=await callAI(sys,[{role:'user',content:ctx}]);
-    return JSON.parse(r.replace(/```json|```/g,'').trim());
+- Return ONLY valid JSON: {"question":"...","options":["a","b","c","d","e"]}
+- 4-6 options, each under 35 chars. Build on previous answers. No option should say "Other".`;
+
+    const ctx = `Initial description: ${initialPromptText}\n\nPrevious Q&A:\n${
+      history.slice(1).map((h, i) => `Q${i+1}: ${h.question}\nA: ${h.selected.join(', ') || 'Skipped'}`).join('\n\n')
+    }\n\nAsk question ${step + 1} of ${totalSteps}.`;
+
+    const r = await callAI(sys, [{ role: 'user', content: ctx }]);
+    return JSON.parse(r.replace(/```json|```/g, '').trim());
   }
 
+  /* ── RESULTS ── */
   async function loadResults() {
-    show('results-screen');
-    document.getElementById('res-container').innerHTML=`<div class="res-loading"><div class="spinner"></div><p>Finding perfect gifts…</p><span>This takes just a moment</span></div>`;
-    try { renderGifts(await genGifts()); } catch(e) { document.getElementById('res-container').innerHTML=`<div class="res-loading"><p>⚠️ Error. Please try again.</p></div>`; }
+    showScreen('results-screen');
+    document.getElementById('res-container').innerHTML = `<div class="res-loading"><div class="spinner"></div><p>Finding perfect gifts…</p><span>This takes just a moment</span></div>`;
+    try { renderGifts(await genGifts()); }
+    catch(e) { document.getElementById('res-container').innerHTML = `<div class="res-loading"><p>⚠️ Error generating gifts. Please try again.</p></div>`; }
   }
 
   async function refreshResults() {
-    document.getElementById('res-container').innerHTML=`<div class="res-loading"><div class="spinner"></div><p>Finding new suggestions…</p><span>This takes just a moment</span></div>`;
-    try { renderGifts(await genGifts()); } catch(e) { document.getElementById('res-container').innerHTML=`<div class="res-loading"><p>⚠️ Error.</p></div>`; }
+    document.getElementById('res-container').innerHTML = `<div class="res-loading"><div class="spinner"></div><p>Finding new suggestions…</p><span>This takes just a moment</span></div>`;
+    try { renderGifts(await genGifts()); }
+    catch(e) { document.getElementById('res-container').innerHTML = `<div class="res-loading"><p>⚠️ Error.</p></div>`; }
+  }
+
+  async function refineResults() {
+    // AI decides how many refinement questions needed (1-4)
+    try {
+      const sys = `You are a gift recommendation assistant. The user wants to refine their gift suggestions.
+Based on what we already know, how many additional questions (1 to 4) would help most?
+Return ONLY valid JSON: {"questions_needed": <number>}`;
+      const ctx = `Known info:\n${history.map((h,i) => `${i===0?'Description':('Q'+i)}: ${h.selected.join(', ')||'Skipped'}`).join('\n')}`;
+      const r = await callAI(sys, [{ role: 'user', content: ctx }]);
+      const data = JSON.parse(r.replace(/```json|```/g,'').trim());
+      const extra = Math.min(Math.max(parseInt(data.questions_needed)||2, 1), 4);
+      totalSteps = step + extra;
+      showScreen('quiz-screen');
+      loadStep();
+    } catch(e) {
+      // fallback: ask 2 questions
+      totalSteps = step + 2;
+      showScreen('quiz-screen');
+      loadStep();
+    }
   }
 
   async function genGifts() {
-    const summary=history.map((h,i)=>`Q${i+1}: ${h.question}\nA: ${h.selected.join(', ')||'Skipped'}`).join('\n\n');
-    const sys=`You are a thoughtful gift expert. Suggest 8 specific, creative gifts.
+    const summary = history.map((h, i) =>
+      `${i === 0 ? 'Description' : `Q${i}`}: ${h.selected.join(', ') || 'Skipped'}`
+    ).join('\n');
+
+    const sys = `You are a thoughtful, sustainability-conscious gift expert. Suggest 8 specific, creative gifts.
 - NEVER assume gender. Use "they/them".
+- Prioritise durable, eco-friendly gifts when possible.
 - Return ONLY a JSON array of 8:
   {"emoji":"...","name":"...","description":"2 sentences.","category":"...","price_range":"$XX–$XX","sustainability_score":0-100,"amazon_search":"..."}
-- Be specific, creative, not generic. Vary budgets.`;
-    const r=await callAI(sys,[{role:'user',content:`Quiz answers:\n\n${summary}\n\nSuggest 8 gifts.`}]);
-    return JSON.parse(r.replace(/```json|```/g,'').trim());
+- sustainability_score: 0=harmful/disposable, 100=fully eco. Be realistic and honest.
+- Vary budgets. Be specific and creative, not generic.`;
+
+    const r = await callAI(sys, [{ role: 'user', content: `Gift info:\n${summary}\n\nSuggest 8 personalised gifts.` }]);
+    return JSON.parse(r.replace(/```json|```/g, '').trim());
   }
 
   function renderGifts(gifts) {
-    const grid=document.createElement('div'); grid.className='res-grid';
-    gifts.forEach(g=>{
-      const sc=g.sustainability_score??50;
-      const col=sc>=70?'#27AE60':sc>=40?'#E67E22':'#E74C3C';
-      const lbl=sc>=70?'Eco-Friendly':sc>=40?'Moderate':'Low';
-      const url=`https://www.amazon.com/s?k=${encodeURIComponent(g.amazon_search)}`;
-      const c=document.createElement('div'); c.className='gift-card';
-      c.innerHTML=`
+    const grid = document.createElement('div'); grid.className = 'res-grid';
+    gifts.forEach(g => {
+      const sc = g.sustainability_score ?? 50;
+      const col = sc >= 70 ? '#27AE60' : sc >= 40 ? '#E67E22' : '#E74C3C';
+      const lbl = sc >= 70 ? 'Eco-Friendly 🌱' : sc >= 40 ? 'Moderate ⚡' : 'Low ⚠️';
+      const url = `https://www.amazon.com/s?k=${encodeURIComponent(g.amazon_search)}`;
+      const c = document.createElement('div'); c.className = 'gift-card';
+      c.innerHTML = `
         <div class="gift-img">${g.emoji}</div>
         <div class="gift-body">
           <div class="gift-title-row"><div class="gift-name">${g.name}</div><span class="gift-price">${g.price_range}</span></div>
@@ -413,29 +677,39 @@
           <div class="gift-tag">🏷️ ${g.category}</div>
           <div class="divider"></div>
           <div class="sus-wrap">
-            <div class="sus-row"><span class="sus-lbl">🌿 Sustainability</span><span class="sus-val" style="color:${col}">${sc}/100 · ${lbl}</span></div>
+            <div class="sus-row"><span class="sus-lbl">🌿 Eco Score</span><span class="sus-val" style="color:${col}">${sc}/100 · ${lbl}</span></div>
             <div class="sus-bar"><div class="sus-fill" style="width:${sc}%;background:${col}"></div></div>
           </div>
           <a class="amazon-btn" href="${url}" target="_blank" rel="noopener">View on Amazon →</a>
         </div>`;
       grid.appendChild(c);
     });
-    document.getElementById('res-container').innerHTML='';
+    document.getElementById('res-container').innerHTML = '';
     document.getElementById('res-container').appendChild(grid);
   }
 
+  /* ── CONTACT FORM ── */
+  function sendContact() {
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const msg = document.getElementById('contact-msg').value.trim();
+    if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
+    // Simulate send
+    document.getElementById('contact-sent').style.display = 'block';
+    document.getElementById('contact-name').value = '';
+    document.getElementById('contact-email').value = '';
+    document.getElementById('contact-msg').value = '';
+  }
+
+  /* ── API ── */
   async function callAI(system, messages) {
     let r;
     try {
-      r = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({system,messages})});
-    } catch(e) {
-      throw new Error('Network error — are you visiting the Vercel URL and not opening the HTML file directly?');
-    }
-    if (r.status===401||r.status===403) throw new Error('API KEY invalid — check Vercel Environment Variables.');
-    if (r.status===404) throw new Error('API not found — check that api/chat.js is at the root of your repo.');
-    if (!r.ok) { const b=await r.text().catch(()=>''); throw new Error('API error '+r.status+': '+b); }
+      r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system, messages }) });
+    } catch(e) { throw new Error('Network error'); }
+    if (!r.ok) { const b = await r.text().catch(() => ''); throw new Error('API ' + r.status + ': ' + b); }
     const d = await r.json();
-    if (!d.text) throw new Error('Empty response from AI.');
+    if (!d.text) throw new Error('Empty response');
     return d.text;
   }
 </script>
