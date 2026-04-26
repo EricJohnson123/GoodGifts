@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   const { messages, system } = req.body;
 
   try {
-    // Combine system prompt + messages pour Gemini
     const contents = [];
     if (system) {
       contents.push({ role: 'user', parts: [{ text: system }] });
