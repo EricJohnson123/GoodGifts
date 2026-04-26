@@ -476,6 +476,7 @@
 Decide how many follow-up questions (0 to 10) are needed to give great gift recommendations.
 - If the description is detailed enough, return 0.
 - If more info is needed, return the minimum number of questions required (max 10).
+- If there is only basic information, we want at least 5 - 10 questions.
 Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sentence>"}`;
 
       const r = await callAI(sys, [{ role: 'user', content: txt }]);
