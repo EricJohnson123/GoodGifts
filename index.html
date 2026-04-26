@@ -177,13 +177,13 @@
     <span class="nav-logo-text">Good<em>Gifts</em></span>
   </a>
   <div class="nav-links">
-    <a href="#">Find a Gift</a>
+    <a href="#" onclick="startQuiz();return false;">Find a Gift</a>
     <a href="#">About Us</a>
     <a href="#">How It Works</a>
     <a href="#">Blog</a>
     <a href="#">Contact Us</a>
   </div>
-  <button class="btn-nav" onclick="startQuiz()">Start Quiz →</button>
+  <button class="btn-nav" id="btn-nav-cta" onclick="startQuiz()">Start Quiz →</button>
 </nav>
 
 <!-- LANDING -->
@@ -195,7 +195,7 @@
       <div class="hero-icon">
         <img src="/logo.png" alt="GoodGifts" style="width:68px;height:68px;object-fit:contain;"/>
       </div>
-      <div class="hero-title">GoodGifts</div>
+      <div class="hero-title">The perfect gift,<br><em style="-webkit-text-fill-color:var(--coral);font-style:italic;">every time.</em></div>
       <p class="hero-sub">Thoughtful, personalised gift ideas — curated by AI.</p>
       <div class="hero-pills">
         <span class="pill">🎁 Personalised</span>
@@ -218,16 +218,15 @@
       <h2>Ready to find the perfect gift?</h2>
       <p>Our AI adapts 9 questions based on your answers, then recommends 8 thoughtful gifts — each with an eco-sustainability score.</p>
       <div class="cta-pills">
-        <span class="cta-pill">🎪 Any Occasion</span>
+        <span class="cta-pill">🎉 Any Occasion</span>
         <span class="cta-pill">⚡ Adaptive AI</span>
         <span class="cta-pill">🌱 Eco Scores</span>
-        <span class="cta-pill">💝 Gender-Neutral</span>
       </div>
       <button class="btn-start" onclick="startQuiz()">Start the Quiz →</button>
     </div>
   </section>
 
-  <footer>© 2026 GoodGifts · <a href="#">Privacy Policy</a> · <a href="#">Terms</a> · <a href="#">Contact Us</a></footer>
+  <footer>© 2026 GoodGifts · <a href="#">Contact Us</a></footer>
 </div>
 
 <!-- QUIZ -->
@@ -247,7 +246,10 @@
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
-    <button class="btn-next" id="btn-next" onclick="handleNext()">Next →</button>
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <button id="btn-skip" onclick="handleSkip()" style="font-size:.82rem;font-weight:500;color:var(--light);background:none;border:1.5px solid var(--border);border-radius:99px;padding:.65rem 1.2rem;cursor:pointer;transition:color .18s,border-color .18s;" onmouseover="this.style.color='var(--mid)';this.style.borderColor='var(--light)';" onmouseout="this.style.color='var(--light)';this.style.borderColor='var(--border)';">Skip</button>
+      <button class="btn-next" id="btn-next" onclick="handleNext()">Next →</button>
+    </div>
   </div>
 </div>
 
@@ -272,7 +274,7 @@
   let step = 0, history = [];
   const TOTAL = 10;
 
-  function show(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+  function show(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); const nb=document.getElementById('btn-nav-cta'); if(nb) nb.textContent = id==='landing-screen' ? 'Start Quiz →' : 'New Search →'; }
   function goHome() { show('landing-screen'); }
   function startQuiz() { step=0; history=[]; show('quiz-screen'); loadStep(); }
 
@@ -302,6 +304,8 @@
 
   function renderQ(card, q) {
     const badge = step===TOTAL-1 ? 'Final Step' : `Question ${step+1}`;
+    // Filter out any "other" options from AI to avoid duplicates with our own Other button
+    const filteredOptions = q.options.filter(o => !/^other/i.test(o.trim()));
     card.innerHTML=`
       <span class="q-badge">${badge}</span>
       <div class="q-text">${q.question}</div>
@@ -310,11 +314,10 @@
         <div class="plus-box">+</div>
         <span class="opt-text">Other…</span>
       </div>
-      <input class="other-input" id="other-inp" placeholder="Type your answer…" style="display:none"/>
-      <div class="q-hint">Select multiple answers, or skip by clicking Next with nothing selected.</div>`;
+      <input class="other-input" id="other-inp" placeholder="Type your answer…" style="display:none"/>`;
 
     const opts = document.getElementById('opts');
-    q.options.forEach(opt=>{
+    filteredOptions.forEach(opt=>{
       const r=document.createElement('div'); r.className='opt-row';
       r.innerHTML=`<div class="chkbox"><svg class="chk-svg" width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="opt-text">${opt}</span>`;
       r.onclick=()=>{
@@ -323,7 +326,7 @@
         if(r.classList.contains('sel')){ if(!h.selected.includes(opt)) h.selected.push(opt); }
         else { h.selected=h.selected.filter(s=>s!==opt); }
       };
-      // restore
+      // restore previous selection
       if(history[step]?.selected?.includes(opt)) r.classList.add('sel');
       opts.appendChild(r);
     });
@@ -358,6 +361,7 @@
   }
 
   function goBack() { if(step>0){ step--; loadStep(); } }
+  function handleSkip() { if(!history[step]) history[step]={question:'',options:[],selected:[]}; step++; loadStep(); }
 
   async function genQuestion() {
     const sys=`You are a gift recommendation assistant. Ask one smart, short, useful question to find the perfect gift.
