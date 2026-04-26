@@ -475,8 +475,8 @@
       const sys = `You are a gift recommendation assistant. A user has described who they are buying a gift for.
 Decide how many follow-up questions (0 to 10) are needed to give great gift recommendations.
 - If the description is detailed enough, return 0.
-- If more info is needed, return the minimum number of questions required (max 10).
 - If there is only basic information, we want at least 8 - 10 questions.
+- If you only need little precisions, 4-6 questions should do fine.
 Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sentence>"}`;
 
       const r = await callAI(sys, [{ role: 'user', content: txt }]);
