@@ -601,7 +601,7 @@ Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sen
 
   /* ── GENERATE QUESTION ── */
   async function genQuestion() {
-    const sys = `You are a gift recommendation assistant. Ask one specific, practical question about the gift recipient to narrow down the perfect gift.
+    const sys = `You are a gift recommendation assistant. Ask one specific, practical question about the gift recipient to narrow down the perfect gift. Don't limit yourself, or be afraid to explore different topics. Additionally, don't be to generic or base yourself off of stereotypes.
 Rules:
 - NEVER ask meta-questions like "what should I focus on", "what kind of gift are you looking for", or "what do you want to find". Ask about the RECIPIENT, not the buyer's preferences.
 - NEVER assume gender. Use "they/them/the recipient".
