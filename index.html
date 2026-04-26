@@ -299,7 +299,7 @@
 <div id="about-screen" class="screen">
   <div class="page-wrap">
     <h1>About Us</h1>
-    <p>GoodGifts was created in 2026 by three students — Isabela Martinez, Emma Rinaldi, and Raphaël Davy — as part of an entrepreneurship project. What started as a school assignment quickly became something we genuinely believed in.</p>
+    <p>GoodGifts was created in 2026 by three students — Isabela, Emma, and Raphaël — as part of an entrepreneurship project. What started as a school assignment quickly became something we genuinely believed in.</p>
     <p>We noticed a problem everyone faces: finding the right gift is hard, time-consuming, and often ends in a purchase that doesn't land. At the same time, the environmental cost of unwanted gifts — the packaging, the returns, the landfill — is enormous.</p>
     <div class="page-divider"></div>
     <h2>Our Vision</h2>
@@ -355,7 +355,7 @@
     <div class="contact-form">
       <div>
         <label>Your name</label>
-        <input type="text" id="contact-name" placeholder="Isabela, Thomas…" style="margin-top:.4rem"/>
+        <input type="text" id="contact-name" placeholder="Mark, Jennifer…" style="margin-top:.4rem"/>
       </div>
       <div>
         <label>Your email</label>
@@ -381,7 +381,7 @@
     <p class="prompt-hint">The more detail you share, the more accurate your gift suggestions will be.</p>
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;">
       <button class="btn-prompt" onclick="analyzePrompt()">
-        Find Gifts ✨
+        Find Gifts ↗
       </button>
       <div class="prompt-analyzing" id="prompt-analyzing">
         <div class="spinner"></div>
@@ -455,6 +455,8 @@
     step = 0; totalSteps = 0; history = []; initialPromptText = '';
     document.getElementById('initial-prompt').value = '';
     document.getElementById('prompt-analyzing').classList.remove('show');
+    const fb = document.querySelector('.btn-prompt');
+    if (fb) fb.style.display = 'flex';
     showScreen('prompt-screen');
   }
 
@@ -493,6 +495,9 @@ Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sen
       // Fallback: just go to results with what we have
       history = [{ question: 'Initial description', options: [], selected: [txt] }];
       loadResults();
+    } finally {
+      const fb = document.querySelector('.btn-prompt');
+      if (fb) fb.style.display = 'flex';
     }
   }
 
@@ -516,7 +521,7 @@ Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sen
     updateProgress();
     const card = document.getElementById('quiz-card');
     const nb = document.getElementById('btn-next');
-    nb.textContent = step === totalSteps - 1 ? '✨ See Gifts' : 'Next →';
+    nb.textContent = step === totalSteps - 1 ? 'See Gifts ↗' : 'Next →';
 
     card.innerHTML = `<div class="loading-wrap"><div class="spinner"></div><span>Generating question…</span></div>`;
     try {
@@ -596,10 +601,16 @@ Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sen
 
   /* ── GENERATE QUESTION ── */
   async function genQuestion() {
-    const sys = `You are a gift recommendation assistant. Ask one smart, targeted question to refine gift suggestions.
+    const sys = `You are a gift recommendation assistant. Ask one specific, practical question about the gift recipient to narrow down the perfect gift.
+Rules:
+- NEVER ask meta-questions like "what should I focus on", "what kind of gift are you looking for", or "what do you want to find". Ask about the RECIPIENT, not the buyer's preferences.
 - NEVER assume gender. Use "they/them/the recipient".
+- Ask about concrete things: their hobbies, lifestyle, age range, living situation, what they already own, occasion, budget range, preferred brands or materials, etc.
 - Return ONLY valid JSON: {"question":"...","options":["a","b","c","d","e"]}
-- 4-6 options, each under 35 chars. Build on previous answers. No option should say "Other".`;
+- 4-6 short options, each under 35 chars. No option should say "Other".
+- Build logically on previous answers — if we know they like cooking, ask about their skill level or kitchen setup, not what hobbies they have.
+- Avoid all potentially sensitive subjects, that may be innapropriate or harmful to the user, and stay polite at all times.
+- If the user tells you what they want specifically in the initial prompt, make sure you provide that in different versions or alternatives as well.`;
 
     const ctx = `Initial description: ${initialPromptText}\n\nPrevious Q&A:\n${
       history.slice(1).map((h, i) => `Q${i+1}: ${h.question}\nA: ${h.selected.join(', ') || 'Skipped'}`).join('\n\n')
@@ -626,8 +637,9 @@ Return ONLY valid JSON: {"questions_needed": <number>, "reason": "<one short sen
   async function refineResults() {
     // AI decides how many refinement questions needed (1-4)
     try {
-      const sys = `You are a gift recommendation assistant. The user wants to refine their gift suggestions.
-Based on what we already know, how many additional questions (1 to 4) would help most?
+      const sys = `You are a gift recommendation assistant. The user wants more precise gift suggestions.
+Based on what we already know, decide how many additional specific questions (1 to 3) about the recipient would meaningfully improve the recommendations.
+Only ask more questions if there are genuine gaps in knowledge about the recipient. If we already know a lot, return 1.
 Return ONLY valid JSON: {"questions_needed": <number>}`;
       const ctx = `Known info:\n${history.map((h,i) => `${i===0?'Description':('Q'+i)}: ${h.selected.join(', ')||'Skipped'}`).join('\n')}`;
       const r = await callAI(sys, [{ role: 'user', content: ctx }]);
@@ -655,7 +667,9 @@ Return ONLY valid JSON: {"questions_needed": <number>}`;
 - Return ONLY a JSON array of 8:
   {"emoji":"...","name":"...","description":"2 sentences.","category":"...","price_range":"$XX–$XX","sustainability_score":0-100,"amazon_search":"..."}
 - sustainability_score: 0=harmful/disposable, 100=fully eco. Be realistic and honest.
-- Vary budgets. Be specific and creative, not generic.`;
+- Vary budgets. Be specific and creative, not generic.
+- Avoid all sensitive subjects, that may be innapropriate or harmful to the user, and stay polite at all times.
+- If the user tells you what they want specifically in the initial prompt, make sure you provide that in different versions or alternatives as well.`;
 
     const r = await callAI(sys, [{ role: 'user', content: `Gift info:\n${summary}\n\nSuggest 8 personalised gifts.` }]);
     return JSON.parse(r.replace(/```json|```/g, '').trim());
