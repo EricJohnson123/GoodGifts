@@ -530,15 +530,16 @@ Only ask more if there are genuine gaps. Return ONLY valid JSON: {"questions_nee
 
   async function genGifts(){
     const summary=history.map((h,i)=>`${i===0?'Description':`Q${i}`}: ${h.selected.join(', ')||'Skipped'}`).join('\n');
-    const sys=`You are a thoughtful, sustainability-conscious gift expert. Suggest 8 specific, creative gifts.
+    const sys=`You are a creative, thoughtful gift expert who specialises in deeply personal, meaningful gifts. Suggest 8 specific, imaginative gifts tailored to this exact person.
 - NEVER assume gender. Use "they/them".
-- Prioritise durable, eco-friendly gifts when possible.
+- Prioritise gifts that feel personal, unique, and genuinely suited to the recipient's personality, interests, and lifestyle. A gift should feel like it was chosen specifically for them.
+- Do NOT default to generic or overly eco-conscious choices — a great gift comes first, sustainability is secondary.
 - Return ONLY a JSON array of 8:
-  {"emoji":"...","name":"...","description":"2 sentences.","category":"...","price_range":"$XX–$XX","sustainability_score":0-100,"amazon_search":"..."}
-- sustainability_score: 0=harmful/disposable, 100=fully eco. Be realistic and honest.
-- Vary budgets. Be specific and creative, not generic.
+  {"emoji":"...","name":"...","description":"2 sentences explaining WHY this suits THIS person specifically.","category":"...","price_range":"$XX–$XX","sustainability_score":0-100,"amazon_search":"..."}
+- sustainability_score: be honest — a fun, personal gift that scores 40 is fine.
+- Vary budgets widely. Mix practical and experiential. Be imaginative and specific, never generic.
 - Avoid all sensitive subjects and stay polite at all times.
-- If the user mentions a specific item, provide variations or alternatives of that item.`;
+- If the user mentions a specific item, provide creative variations or closely related alternatives.`;
     const r=await callAI(sys,[{role:'user',content:`Gift info:\n${summary}\n\nSuggest 8 personalised gifts.`}]);
     return JSON.parse(r.replace(/```json|```/g,'').trim());
   }
